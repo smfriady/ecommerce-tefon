@@ -3,14 +3,12 @@ const PORT = 3001 || process.env.PORT;
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
-main().catch((err) => console.log(err));
+const main = require("./configs/db");
 
-async function main() {
-  mongoose.set("strictQuery", true);
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
-  console.log(`Database terhubung at ${mongoose.connection.host}`);
-}
+main().catch((err) => {
+  console.log(err);
+  process.exit(1);
+});
 
 const app = express();
 
