@@ -7,8 +7,12 @@ import {
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
+import { productListReducer } from "./features/reducers/productReducers";
+
 /** Reducers */
-const rootReducers = combineReducers({});
+const rootReducers = combineReducers({
+  products: productListReducer,
+});
 
 const composeEnhancers = composeWithDevTools || compose;
 
