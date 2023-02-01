@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const main = require("./configs/db");
 const routers = require("./app/routes");
+const errorHandler = require("./app/middlewares/errorHandler");
 
 main().catch((err) => {
   console.log(err);
@@ -21,5 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(routers);
+app.use(errorHandler);
 
 app.listen(PORT, (_) => console.log(`serverup at port ${PORT}`));
