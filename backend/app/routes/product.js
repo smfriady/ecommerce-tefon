@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { getAll } = require("../controllers/product");
+const { getProducts, getProductById } = require("../controllers/product");
 
-router.get("/", getAll);
-
+router.get("/", getProducts);
+router.get("/:productId", getProductById);
 module.exports = router;
