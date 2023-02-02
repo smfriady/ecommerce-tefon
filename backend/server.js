@@ -1,11 +1,12 @@
-const PORT = 3001 || process.env.PORT;
-
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const main = require("./configs/db");
 const routers = require("./app/routes");
 const errorHandler = require("./app/middlewares/errorHandler");
+
+const PORT = 3001 || process.env.PORT;
 
 main().catch((err) => {
   console.log(err);
