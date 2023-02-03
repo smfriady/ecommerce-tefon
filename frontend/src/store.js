@@ -7,14 +7,20 @@ import {
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
-import { productListReducer } from "./features/reducers/productReducers";
-import { loginReducer, registerReducer } from "./features/reducers/authReducers";
+import { productListReducer, singleProductReducer } from "./features/reducers/productReducers";
+import {
+  loginReducer,
+  logoutReducer,
+  registerReducer,
+} from "./features/reducers/authReducers";
 
 /** Reducers */
 const rootReducers = combineReducers({
   products: productListReducer,
+  product: singleProductReducer,
   register: registerReducer,
   login: loginReducer,
+  logout: logoutReducer,
 });
 
 const composeEnhancers = composeWithDevTools || compose;

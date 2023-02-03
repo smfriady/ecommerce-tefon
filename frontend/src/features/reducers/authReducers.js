@@ -2,6 +2,9 @@ import {
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_FAIL,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -15,6 +18,12 @@ let initialState = {
 
 let initialLoginState = {
   login: {},
+  loading: false,
+  error: "",
+};
+
+let initialLogoutState = {
+  logout: {},
   loading: false,
   error: "",
 };
@@ -40,6 +49,19 @@ export const loginReducer = (state = initialLoginState, action) => {
       return { loading: false, login: action.payload, error: "" };
     case LOGIN_FAIL:
       return { loading: false, login: {}, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const logoutReducer = (state = initialLogoutState, action) => {
+  switch (action.type) {
+    case LOGOUT_REQUEST:
+      return { loading: true };
+    case LOGOUT_SUCCESS:
+      return { loading: false, logout: action.payload, error: "" };
+    case LOGOUT_FAIL:
+      return { loading: false, logout: {}, error: action.payload };
     default:
       return state;
   }

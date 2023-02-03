@@ -6,6 +6,9 @@ import {
   REGISTER_FAIL,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
 } from "../constants/authConstants";
 
 export const registerRequest = () => ({
@@ -33,6 +36,20 @@ export const loginSuccess = (data) => ({
 
 export const loginFail = (data) => ({
   type: LOGIN_FAIL,
+  payload: data,
+});
+
+export const logoutRequest = () => ({
+  type: LOGOUT_REQUEST,
+});
+
+export const logoutSuccess = (data) => ({
+  type: LOGOUT_SUCCESS,
+  payload: data,
+});
+
+export const logoutFail = (data) => ({
+  type: LOGOUT_FAIL,
   payload: data,
 });
 
@@ -76,7 +93,6 @@ const customerLogin = (credential) => async (dispatch, _getState) => {
 
     const data = await res.json();
 
-
     if (!res.ok) throw Error(data.message);
 
     dispatch(loginSuccess(data));
@@ -87,4 +103,28 @@ const customerLogin = (credential) => async (dispatch, _getState) => {
   }
 };
 
-export { customerRegister, customerLogin };
+const customerLogout = () => async (dispatch, _getState) => {
+  try {
+    dispatch(logoutRequest());
+
+    const res = await fetch(`${NEXT_URL}/api/logout`, {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw Error(data.message);
+
+    dispatch(logoutSuccess(data));
+    return data;
+  } catch (error) {
+    dispatch(logoutFail(error.message));
+    throw error.message;
+  }
+};
+
+export { customerRegister, customerLogin, customerLogout };
