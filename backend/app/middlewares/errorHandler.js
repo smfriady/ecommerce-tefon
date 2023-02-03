@@ -14,6 +14,18 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "CheckInputRegister") {
     code = 400;
     message = "Please enter a value in the field.";
+  } else if (err.name === "CheckInputCreateProduct") {
+    code = 400;
+    message = "Please enter a value in the field product.";
+  } else if (err.name === "Unauthorized") {
+    code = 401;
+    message = "Unauthorized, no user login.";
+  } else if (err.name === "ForbiddenAsAdmin") {
+    code = 403;
+    message = "Forbidden as an admin";
+  } else if (err.name === "NoProductFound") {
+    code = 404;
+    message = "Product Not Found";
   } else {
     code = 500;
     message = "Internal server error.";
