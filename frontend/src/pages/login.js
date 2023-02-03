@@ -5,13 +5,14 @@ import { toast } from "react-toastify";
 import AuthLayout from "@/components/AuthLayout";
 import FormInput from "@/components/FormInput";
 import { customerLogin } from "@/features/actions/authActions";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const { loading } = useSelector((s) => s.login);
 
   const onChangeHandler = (e) => {
@@ -29,6 +30,7 @@ const LoginPage = () => {
           email: "",
           password: "",
         });
+        router.push("/");
         toast.success(message);
       })
       .catch((message) => toast.error(message));
@@ -62,7 +64,9 @@ const LoginPage = () => {
             <button
               disabled={loading}
               type="submit"
-              className="bg-black hover:bg-gray-800 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 mt-4 w-full"
+              className={`hover:bg-gray-800 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 mt-4 w-full`.concat(
+                loading ? " bg-gray-400" : " bg-black"
+              )}
             >
               Login
             </button>

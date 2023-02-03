@@ -71,7 +71,9 @@ const RegisterPage = () => {
             <button
               disabled={loading}
               type="submit"
-              className="bg-black hover:bg-gray-800 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 mt-4 w-full"
+              className={`hover:bg-gray-800 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 mt-4 w-full`.concat(
+                loading ? " bg-gray-400" : " bg-black"
+              )}
             >
               Register
             </button>
