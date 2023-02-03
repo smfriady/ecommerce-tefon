@@ -24,6 +24,7 @@ async function getProductById(req, res, next) {
     if (!isId) throw { name: "InvalidMongoId" };
 
     const product = await Product.findById(id).select("-createdAt -updatedAt -__v");
+    if (!product) throw { name: "NoProductFound" };
 
     res.status(200).json(product);
   } catch (error) {
@@ -78,10 +79,35 @@ async function updateProduct(req, res, next) {
 
     const updatedProduct = await product.save();
 
-    res.status(200).json({ message: `Product ${updatedProduct.product_name}, updated successfully.` });
+    res
+      .status(200)
+      .json({ message: `Product ${updatedProduct.product_name}, updated successfully.` });
   } catch (error) {
     next(error);
   }
 }
 
-module.exports = { getProducts, getProductById, insertProduct, updateProduct };
+// @desc    Delete product
+// @route   DELETE /api/v1/products/:productId
+// @access  Private
+async function destroyProduct(req, res, next) {
+  try {
+    const id = req.params.productId;
+
+    const isId = isValid(id);
+    if (!isId) throw { name: "InvalidMongoId" };
+
+    const product = await Product.findById(id).select("-createdAt -updatedAt -__v");
+    if (!product) throw { name: "NoProductFound" };
+
+    await product.remove();
+
+    res
+      .status(200)
+      .json({ message: `Product ${product.product_name}, deleted successfully.` });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { getProducts, getProductById, insertProduct, updateProduct, destroyProduct };
