@@ -10,7 +10,7 @@ const BaseLayout = ({ children, title, token }) => {
       </Head>
       <div className="flex flex-col justify-between min-h-screen bg-gray-50">
         <Navbar token={token} />
-        <div>{children}</div>
+        {children}
         <Footer />
       </div>
     </>
