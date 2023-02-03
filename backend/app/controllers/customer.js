@@ -8,6 +8,7 @@ const User = require("../models/userModel");
 async function registerCustomer(req, res, next) {
   try {
     const { name, password, email } = req.body;
+    if (!name || !password || !email) throw { name: "CheckInputRegister" }; 
 
     const userExists = await User.findOne({ email });
     if (userExists) throw { name: "UserExists" };
@@ -30,6 +31,7 @@ async function registerCustomer(req, res, next) {
 async function loginCustomer(req, res, next) {
   try {
     const { password, email } = req.body;
+    if (!password || !email) throw { name: "CheckInputRegister" }; 
 
     const user = await User.findOne({ email });
 
