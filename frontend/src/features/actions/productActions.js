@@ -1,3 +1,4 @@
+import { API_URL } from "@/configs";
 import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
@@ -18,16 +19,26 @@ export const productListFail = (data) => ({
   payload: data,
 });
 
-const baseUrl = "http://localhost:3001";
-
 const getProducts = () => async (dispatch) => {
   try {
     dispatch(productListRequest());
 
-    const data = [];
+    const res = await fetch(`${API_URL}/api/v1/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw Error(data.message);
+
     dispatch(productListSuccess(data));
+    return data;
   } catch (error) {
-    dispatch(productListFail(error));
+    dispatch(productListFail(error.message));
+    throw error.message;
   }
 };
 
