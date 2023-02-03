@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 async function main() {
   mongoose.set("strictQuery", false);
-  await mongoose.connect("mongodb://127.0.0.1:27017/db-ponshop", { useNewUrlParser: true });
+  await mongoose.connect(process.env.MONGODB_URI_DEV, { useNewUrlParser: true });
   console.log(`Database terhubung at ${mongoose.connection.host}`);
 }
 
