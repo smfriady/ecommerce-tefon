@@ -4,6 +4,7 @@ specifiers:
   '@next/font': 13.1.6
   '@redux-devtools/extension': ^3.2.5
   autoprefixer: ^10.4.13
+  cookie: ^0.5.0
   eslint: 8.33.0
   eslint-config-next: 13.1.6
   next: 13.1.6
@@ -20,6 +21,7 @@ specifiers:
 dependencies:
   '@next/font': 13.1.6
   '@redux-devtools/extension': 3.2.5_redux@4.2.1
+  cookie: 0.5.0
   eslint: 8.33.0
   eslint-config-next: 13.1.6_eslint@8.33.0
   next: 13.1.6_biqbaboplfbrettd7655fr4n2y
@@ -609,6 +611,11 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    dev: false
+
+  /cookie/0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
+    engines: {node: '>= 0.6'}
     dev: false
 
   /cross-spawn/7.0.3:
