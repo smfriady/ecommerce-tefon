@@ -1,5 +1,8 @@
 import { API_URL } from "@/configs";
 import {
+  FIND_ONE_PRODUCT_FAIL,
+  FIND_ONE_PRODUCT_REQUEST,
+  FIND_ONE_PRODUCT_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -16,6 +19,20 @@ export const productListSuccess = (data) => ({
 
 export const productListFail = (data) => ({
   type: PRODUCT_LIST_FAIL,
+  payload: data,
+});
+
+export const findOneProductRequest = () => ({
+  type: FIND_ONE_PRODUCT_REQUEST,
+});
+
+export const findOneProductSuccess = (data) => ({
+  type: FIND_ONE_PRODUCT_SUCCESS,
+  payload: data,
+});
+
+export const findOneProductFail = (data) => ({
+  type: FIND_ONE_PRODUCT_FAIL,
   payload: data,
 });
 
@@ -42,4 +59,27 @@ const getProducts = () => async (dispatch) => {
   }
 };
 
-export { getProducts };
+const getProduct = (slug) => async (dispatch) => {
+  try {
+    dispatch(findOneProductRequest());
+
+    const res = await fetch(`${API_URL}/api/v1/products/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw Error(data.message);
+
+    dispatch(findOneProductSuccess(data));
+    return data;
+  } catch (error) {
+    dispatch(findOneProductFail(error.message));
+    throw error.message;
+  }
+};
+
+export { getProducts, getProduct };
