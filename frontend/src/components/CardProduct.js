@@ -1,4 +1,6 @@
 import { formatRupiah } from "@/helpers/formatRupiah";
+import { slugify } from "@/helpers/slug";
+import Link from "next/link";
 
 const CardProduct = ({ products }) => {
   const { _id, product_name, product_price, brand, product_image_url, product_info } =
@@ -18,6 +20,12 @@ const CardProduct = ({ products }) => {
       </div>
       <div className="px-6">
         <div className="font-bold text-xl mb-2">{formatRupiah(product_price)}</div>
+        <Link
+          href={`/${slugify(product_name)}?id=${_id}`}
+          className="inline-block bg-blue-600 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2"
+        >
+          Lihat Detail
+        </Link>
       </div>
       <div className="px-6 pt-2 pb-2">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
