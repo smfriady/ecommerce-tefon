@@ -2,3 +2,4 @@ node_modules
 yarn.lock
 data/example-product.csv
 .env
+.vscode
