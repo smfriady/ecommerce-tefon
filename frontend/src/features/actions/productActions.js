@@ -87,16 +87,21 @@ export const editProductFail = (data) => ({
   payload: data,
 });
 
-const getProducts = () => async (dispatch) => {
+const getProducts = (params) => async (dispatch) => {
+  console.log(params)
+ 
   try {
     dispatch(productListRequest());
 
-    const res = await fetch(`${API_URL}/api/v1/products`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `${API_URL}/api/v1/products`.concat(params ? "?pageNumber=" + params : ""),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
 
