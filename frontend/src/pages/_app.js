@@ -4,11 +4,17 @@ import { ToastContainer } from "react-toastify";
 
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { ModalProvider } from "@/context/ModalContext"
 
 export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <ModalProvider>
+          <Component {...pageProps} />
+        </ModalProvider>
+      </AuthProvider>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -20,7 +26,7 @@ export default function App({ Component, pageProps }) {
         draggable
         pauseOnHover
         theme="light"
-      /> 
+      />
     </Provider>
   );
 }

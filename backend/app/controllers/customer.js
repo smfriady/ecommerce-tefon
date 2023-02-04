@@ -8,7 +8,7 @@ const User = require("../models/userModel");
 async function registerCustomer(req, res, next) {
   try {
     const { name, password, email } = req.body;
-    if (!name || !password || !email) throw { name: "CheckInputRegister" }; 
+    if (!name || !password || !email) throw { name: "CheckInputRegister" };
 
     const userExists = await User.findOne({ email });
     if (userExists) throw { name: "UserExists" };
@@ -31,7 +31,7 @@ async function registerCustomer(req, res, next) {
 async function loginCustomer(req, res, next) {
   try {
     const { password, email } = req.body;
-    if (!password || !email) throw { name: "CheckInputRegister" }; 
+    if (!password || !email) throw { name: "CheckInputRegister" };
 
     const user = await User.findOne({ email });
 
@@ -48,4 +48,19 @@ async function loginCustomer(req, res, next) {
   }
 }
 
-module.exports = { registerCustomer, loginCustomer };
+// @desc    GET customer
+// @route   POST /api/v1/customer/me
+// @access  Private
+async function me(req, res, next) {
+  try {
+    const { id } = req.user;
+
+    const user = await User.findById(id).select("-createdAt -updatedAt -__v -password");
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { registerCustomer, loginCustomer, me };

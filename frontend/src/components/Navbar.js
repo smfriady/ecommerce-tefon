@@ -1,15 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaUser } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { customerLogout } from "@/features/actions/authActions";
+import FormCreateProduct from "./FormProduct";
 
 const Navbar = ({ token }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const { login } = useSelector((s) => s.login);
+
+  // modal 
+ 
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(customerLogout())
@@ -29,7 +34,14 @@ const Navbar = ({ token }) => {
               teFon
             </Link>
           </div>
-          <ul className="inline-flex space-x-2">
+          <ul className="inline-flex space-x-3">
+            {login?.isAdmin && (
+              <>
+                <li>
+                  <FormCreateProduct token={token} />
+                </li>
+              </>
+            )}
             {token ? (
               <li>
                 <button

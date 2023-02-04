@@ -6,8 +6,20 @@ const { isValid } = require("mongoose").Types.ObjectId;
 // @access  Public
 async function getProducts(req, res, next) {
   try {
-    const products = await Product.find().sort({ createdAt: -1 }).limit(10);
-    res.status(200).json(products);
+    const pageSize = 12;
+    const page = Number(req.query.pageNumber) || 1
+    const count = await Product.countDocuments();
+
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
+
+    res.status(200).json({
+      products,
+      pages: Math.ceil(count / pageSize),
+    });
   } catch (error) {
     next(error);
   }
