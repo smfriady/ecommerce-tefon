@@ -8,15 +8,19 @@ import CardProduct from "@/components/CardProduct";
 const Home = ({ cookies }) => {
   const dispatch = useDispatch();
   const { loading, products, error } = useSelector((s) => s.products);
+  const { login } = useSelector((s) => s.login);
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
   return (
-    <BaseLayout title="Home Page" token={cookies ? true : false}>
+    <BaseLayout title="Home Page" token={cookies}>
       <div className="container mx-auto w-full m-5 px-2">
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-2">
-          {products && products.map((p, i) => <CardProduct key={i} products={p} />)}
+          {products &&
+            products.map((p, i) => (
+              <CardProduct key={i} products={p} token={cookies} isAdmin={login?.isAdmin} />
+            ))}
         </div>
       </div>
     </BaseLayout>

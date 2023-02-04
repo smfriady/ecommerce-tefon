@@ -5,6 +5,9 @@ import {
   FIND_ONE_PRODUCT_FAIL,
   FIND_ONE_PRODUCT_REQUEST,
   FIND_ONE_PRODUCT_SUCCESS,
+  ADD_PRODUCT_FAIL,
+  ADD_PRODUCT_REQUEST,
+  ADD_PRODUCT_SUCCESS
 } from "../constants/productConstants";
 
 let initialState = {
@@ -39,6 +42,20 @@ export const singleProductReducer = (state = initialProductState, action) => {
     case FIND_ONE_PRODUCT_SUCCESS:
       return { loading: false, product: action.payload };
     case FIND_ONE_PRODUCT_FAIL:
+      return { loading: false, product: {}, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const createProductReducer = (state = { product: {}, loading: false, error: "" }, action) => {
+  switch (action.type) {
+    case ADD_PRODUCT_REQUEST:
+      return { loading: true };
+    case ADD_PRODUCT_SUCCESS:
+      return { loading: false, product: action.payload };
+    case ADD_PRODUCT_FAIL:
       return { loading: false, product: {}, error: action.payload };
     default:
       return state;

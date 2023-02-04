@@ -96,6 +96,7 @@ const customerLogin = (credential) => async (dispatch, _getState) => {
     if (!res.ok) throw Error(data.message);
 
     dispatch(loginSuccess(data));
+    dispatch(customerIsLogin())
     return data;
   } catch (error) {
     dispatch(loginFail(error.message));
@@ -103,10 +104,10 @@ const customerLogin = (credential) => async (dispatch, _getState) => {
   }
 };
 
-const customerLogout = () => async (dispatch, _getState) => {
+const customerLogout = () => async (dispatch, getState) => {
   try {
     dispatch(logoutRequest());
-
+    
     const res = await fetch(`${NEXT_URL}/api/logout`, {
       method: "POST",
       body: JSON.stringify({}),
@@ -120,6 +121,7 @@ const customerLogout = () => async (dispatch, _getState) => {
     if (!res.ok) throw Error(data.message);
 
     dispatch(logoutSuccess(data));
+    dispatch(loginSuccess({}));
     return data;
   } catch (error) {
     dispatch(logoutFail(error.message));
@@ -127,4 +129,20 @@ const customerLogout = () => async (dispatch, _getState) => {
   }
 };
 
-export { customerRegister, customerLogin, customerLogout };
+const customerIsLogin = () => async (dispatch, _getState) => {
+  try {
+    dispatch(loginRequest());
+
+    const res = await fetch(`${NEXT_URL}/api/user`, { method: "GET" });
+    const data = await res.json();
+
+    if (!res.ok) throw Error(data.message);
+
+    dispatch(loginSuccess(data));
+  } catch (error) {
+    dispatch(loginFail(error.message));
+    throw error.message;
+  }
+};
+
+export { customerRegister, customerLogin, customerLogout, customerIsLogin };
