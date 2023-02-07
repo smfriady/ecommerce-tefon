@@ -1,4 +1,6 @@
-# Judul Proyek: E-Commerce teFon
+# Teknikal Test pada salah satu perusahaan di Indonesia 
+
+## Judul Proyek: E-Commerce teFon
 
 ### Deskripsi Umum:
 Proyek ini adalah sebuah situs e-commerce yang akan memungkinkan pengguna untuk melakukan pembelian produk secara online. Situs ini akan memiliki antarmuka pengguna yang intuitif dan mudah digunakan (soon hehehehe), serta fitur yang memungkinkan pengguna untuk melakukan transaksi dan melacak pesanan mereka.
